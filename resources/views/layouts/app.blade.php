@@ -15,6 +15,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
+    <!-- Fontowesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.01/css/all.min.css" integrity="sha512-npVAdU8G3WzA1y3z37Z7uOpvGBshngKEmqaN0r5z+8uF5q+B7Dbii1jyQ2Uv+6vJfW1BkMxeBOC5oYpsJglkVA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     @yield('cdns')
 
     <!-- Usando Vite -->
