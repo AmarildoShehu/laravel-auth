@@ -61,6 +61,10 @@
    
   </tbody>
 </table>
+
+ @if($posts->hasPage())
+ {{ $posts->links() }}
+ @endif
 @endsection
 
 @section('scripts')

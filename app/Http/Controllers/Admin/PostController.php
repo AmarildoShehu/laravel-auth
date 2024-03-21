@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderByDesc('updated_at')->orderByDesc('created_at')->get();
+        $posts = Post::orderByDesc('updated_at')->orderByDesc('created_at')->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
