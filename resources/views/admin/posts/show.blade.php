@@ -26,7 +26,7 @@
         <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-warning"> <i class="fas fa-pencil"></i> Modifica</a>
         
         <form action="{{ route('admin.posts.destroy', $post->id)}}" 
-        method="POST">
+        method="POST" class="delete-form">
             @csrf
             @method('DELETE')        
             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-can me-2"></i>Elimina</button>
@@ -36,4 +36,8 @@
 
 </footer>
 
+@endsection
+
+@section('scripts')
+  @vite('resources/js/delete_confirmation.js')
 @endsection

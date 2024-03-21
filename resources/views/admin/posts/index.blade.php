@@ -61,5 +61,8 @@
    
   </tbody>
 </table>
-  
+@endsection
+
+@section('scripts')
+  @vite('resources/js/delete_confirmation.js')
 @endsection
