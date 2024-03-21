@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderByDesc('update_at')->orderByDesc('created_at');
+        $posts = Post::orderByDesc('update_at')->orderByDesc('created_at')->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -62,6 +62,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return to-route('admin.posts.index')->with('type', 'danger')->with('message', 'Post eliminato con successo');
     }
 }

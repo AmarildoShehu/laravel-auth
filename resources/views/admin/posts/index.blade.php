@@ -29,10 +29,23 @@
       <td>{{ $post->created_at }}</td>
       <td>{{ $post->updated_at }}</td>
       <td>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end g-3">
             <a href="{{ route('admin.posts.show', $post)}}" class="btn btn-sm btn-primary">
                 <i class="fas fa-eye"></i>
             </a>
+            <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-sm btn-warning"> 
+              <i class="fas fa-pencil"></i>
+            </a>
+        
+        <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST">
+            @csrf
+            @method('DELETE')        
+            <button type="submit" class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-can"></i>
+            </button>
+        </form>
+    
+    </div>
         </div>
       </td>
     </tr>
