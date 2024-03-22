@@ -5,7 +5,7 @@
 @section('content')
 
 <header class="mt-3">
-    <h1>Posts</h1>
+    <h1> {{ $post->title }}</h1>
 </header>
 
 <div class="clearfix">

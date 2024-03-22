@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Posts')
+  @section('title', 'Posts')
 
-@section('content')
+  @section('content')
    
     <header class="mt-3">
         <h1>Posts</h1>
     </header>
     
     <!-- Table -->
-    <table class="table table-dark table-striped mt-5">
+  <table class="table table-dark table-striped mt-5">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -37,7 +37,7 @@
               <i class="fas fa-pencil"></i>
             </a>
         
-        <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST">
+        <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST" class="delete-form">
             @csrf
             @method('DELETE')        
             <button type="submit" class="btn btn-sm btn-danger">
@@ -62,9 +62,9 @@
   </tbody>
 </table>
 
- @if($posts->hasPage())
- {{ $posts->links() }}
- @endif
+
+<!-- questa genera errore  -->
+
 @endsection
 
 @section('scripts')
