@@ -63,8 +63,10 @@
 </table>
 
 
-<!-- questa genera errore  -->
-
+<!-- questa generava errore  ora non piu Boooooooooooooooooo-->
+  @if($posts->hasPages())
+    {{$posts->links()}}
+  @endif
 @endsection
 
 @section('scripts')
