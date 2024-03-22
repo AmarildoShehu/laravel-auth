@@ -23,7 +23,8 @@ class PostFactory extends Factory
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => fake()->paragraphs(15, true),
-            'image' => fake()->imageUrl(250, 250, true),     
+            'image' => fake()->imageUrl(250, 250, true),    
+            'is_published' => fake()->boolean() 
         ];
     }
 }

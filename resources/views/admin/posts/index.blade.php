@@ -15,9 +15,10 @@
       <th scope="col">#</th>
       <th scope="col">Title</th>
       <th scope="col">Slug</th>
+      <th scope="col">Stato</th>
       <th scope="col">Created at</th>
       <th scope="col">Updated at</th>
-
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,7 @@
       <th scope="row">{{ $post->id }}</th>
       <td>{{ $post->title }}</td>
       <td>{{ $post->slug }}</td>
+      <td>{{ $post->is_published ? 'Pubblicato' : 'Bozza'}}</td>
       <td>{{ $post->created_at }}</td>
       <td>{{ $post->updated_at }}</td>
       <td>
