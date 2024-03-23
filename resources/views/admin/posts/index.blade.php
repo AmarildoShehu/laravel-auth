@@ -28,8 +28,8 @@
       <th scope="col">Title</th>
       <th scope="col">Slug</th>
       <th scope="col">Stato</th>
-      <th scope="col">Created at</th>
-      <th scope="col">Updated at</th>
+      <th scope="col">Creato il</th>
+      <th scope="col">Modificato il</th>
       <th></th>
     </tr>
   </thead>
@@ -40,8 +40,8 @@
       <td>{{ $post->title }}</td>
       <td>{{ $post->slug }}</td>
       <td>{{ $post->is_published ? 'Pubblicato' : 'Bozza'}}</td>
-      <td>{{ $post->created_at }}</td>
-      <td>{{ $post->updated_at }}</td>
+      <td>{{ $post->getFormaterDate('created_at', 'd-m-Y H:i:s') }}</td>
+      <td>{{ $post->getFormaterDate('updated_at') }}</td>
       <td>
         <div class="d-flex justify-content-around">
             <a href="{{ route('admin.posts.show', $post)}}" class="btn btn-sm btn-primary">

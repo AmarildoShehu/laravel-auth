@@ -14,8 +14,8 @@
     @endif
     <p>{{ $post->content }}</p>
     <div>
-        <strong>Created at:</strong> {{ $post->created_at }}
-        <strong>Updated at:</strong> {{ $post->updated_at }}
+        <strong>Created at:</strong> {{ $post->getFormaterDate('created_at', 'd-m-Y H:i:s')}}
+        <strong>Updated at:</strong> {{ $post->getFormaterDate('updated_at', 'd-m-Y H:i:s') }}
     </div>
 </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,4 +11,8 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    public function getFormaterDate($column, $format = 'd-m-Y'){
+        return Carbon::create($this->$column)->format($format);
+    }
 }
