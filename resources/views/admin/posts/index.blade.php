@@ -30,7 +30,13 @@
       <th scope="col">Stato</th>
       <th scope="col">Creato il</th>
       <th scope="col">Modificato il</th>
-      <th></th>
+      <th>
+        <div class="d-flex justify-content-end">
+            <a href="{{route('admin.posts.create')}}" class="btn btn-sm btn-success">
+            <i class="fas fa-plus"> Nuovo</i>
+          </a>
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -58,9 +64,8 @@
               <i class="fas fa-trash-can"></i>
             </button>
         </form>
-    
-    </div>
         </div>
+      </div>
       </td>
     </tr>
 

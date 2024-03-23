@@ -12,6 +12,8 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = ['title', 'content', 'image'];
+
     public function getFormaterDate($column, $format = 'd-m-Y'){
         return Carbon::create($this->$column)->format($format);
     }
