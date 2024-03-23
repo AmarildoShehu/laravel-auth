@@ -8,9 +8,9 @@
         <h1>Posts</h1>
 
         <!-- Filtro -->
-        <form action=" {{ route('admin.posts.index') }}" method="GET">
+        <form action="{{ route('admin.posts.index') }}" method="GET">
         <div class="input-group">
-          <select class="form-select" name=""filter>
+          <select class="form-select" name="filter">
               <option value="" >Tutti</option>
               <option value="published" @if($filter === 'published') selected @endif>Pubblicati</option>
               <option value="drafts" @if($filter === 'drafts') selected @endif>Bozze</option>
