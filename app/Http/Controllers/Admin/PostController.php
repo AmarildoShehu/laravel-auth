@@ -11,10 +11,19 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderByDesc('updated_at')->orderByDesc('created_at')->paginate(10);
-        return view('admin.posts.index', compact('posts'));
+        $filter = $request->query('filter');
+
+        $query = Post::orderByDesc('updated_at')->orderByDesc('created_at');
+
+        if($filter){
+            $value = $filter === 'published';
+            $query->whereIsPublished($value);
+        }
+
+        $posts = $query->paginate(10)->withQueryString();
+        return view('admin.posts.index', compact('posts', 'filter'));
     }
 
     /**

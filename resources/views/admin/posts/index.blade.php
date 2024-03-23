@@ -4,8 +4,20 @@
 
   @section('content')
    
-    <header class="mt-3">
+    <header class="d-flex aligh-items-center justify-content-between">
         <h1>Posts</h1>
+
+        <!-- Filtro -->
+        <form action=" {{ route('admin.posts.index') }}" method="GET">
+        <div class="input-group">
+          <select class="form-select" name=""filter>
+              <option value="" >Tutti</option>
+              <option value="published" @if($filter === 'published') selected @endif>Pubblicati</option>
+              <option value="drafts" @if($filter === 'drafts') selected @endif>Bozze</option>
+            </select>
+            <button class="bn btn-outline-secondary">Go</button>
+        </div>  
+        </form>
     </header>
     
     <!-- Table -->
@@ -31,7 +43,7 @@
       <td>{{ $post->created_at }}</td>
       <td>{{ $post->updated_at }}</td>
       <td>
-        <div class="d-flex justify-content-end g-3">
+        <div class="d-flex justify-content-around">
             <a href="{{ route('admin.posts.show', $post)}}" class="btn btn-sm btn-primary">
                 <i class="fas fa-eye"></i>
             </a>

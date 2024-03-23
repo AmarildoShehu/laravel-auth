@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function __invoke()
     {
 
-        $posts= Post::orderByDesc('created_at')->paginate(5);
+        $posts= Post::whereIsPublished(true)->orderByDesc('created_at')->paginate(5);
 
         return view('guest.home', compact('posts'));
     }
