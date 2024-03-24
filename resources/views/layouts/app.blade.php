@@ -40,9 +40,10 @@
         </main>
     </div>
 
+    <!-- Toast -->
+    @include('includes.toast')
 
-
-
+    <!-- Scripts -->
     @yield('scripts')
 </body>
 
