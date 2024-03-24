@@ -7,7 +7,6 @@
         <h1>Nuovo Post</h1>
     </header>
 
-    
     <form action="{{ route('admin.posts.store') }}" method="POST" novalidate>
         @csrf
 
@@ -15,28 +14,35 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="title" class="form-label">Titolo</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Titolo..." value="{{old('title', '')}}" required>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Titolo..." value="{{ old('title', '') }}" required>
                 </div>
             </div>
 
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="content" class="form-label">Contento del post</label>
-                    <textarea class="form-control" id="content" rows="10" name="content" required>
-                       {{old('content', '')}}"
-                    </textarea>
+                    <label for="content" class="form-label">Contenuto del post</label>
+                    <textarea class="form-control" id="content" rows="10" name="content" required>{{ old('content', '') }}</textarea>
                 </div>
             </div>
 
             <div class="col-11">
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="url" class="form-control" id="image" name="image" placeholder="http:// o https://" value="{{old('image', '')}}">
+                    <label for="image" class="form-label">Immagine</label>
+                    <input type="url" class="form-control" id="image" name="image" placeholder="http:// o https://" value="{{ old('image', '') }}">
                 </div>
             </div>
             <div class="col-1">
                 <div class="mb-3">
-                    <img src="{{old('image', 'https://')}}" class="img-fluid" alt="immagine post" id="preview">
+                    <img src="{{ old('image', 'https://') }}" class="img-fluid" alt="Immagine post" id="preview">
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="is_published" name="is_published" $value="1"   
+                    @if(old('is_published', '')) checked @endif>
+                    <label class="form-check-label" for="is_published">
+                        Pubblicato
+                    </label>
                 </div>
             </div>
         </div>
@@ -55,24 +61,16 @@
             </div>
         </div>
     </form>
-
-
-
-    </form>
 @endsection
 
 @section('scripts')
-
     <script>
-        const placeholder= 'https://'
+        const placeholder = 'https://';
         const input = document.getElementById('image');
-        const preview= document.getElementById('preview');
+        const preview = document.getElementById('preview');
                         
-        input.addEventListener('input', () =>{
+        input.addEventListener('input', () => {
             preview.src = input.value || placeholder;
-        })
-    
+        });
     </script>
-
-                    
 @endsection
