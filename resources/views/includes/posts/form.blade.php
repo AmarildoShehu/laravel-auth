@@ -1,15 +1,11 @@
-@extends('layouts.app')
+@if($post->exists)
+<form action="{{ route('admin.posts.update', $post) }}" method="POST" novalidate>
+    @method('PUT')
+@else
+<form action="{{ route('admin.posts.store') }}" method="POST" novalidate>
+@endif
 
-@section('title', 'Modifica Post')
-
-@section('content')
-    <header>
-        <h1>Modifica Post</h1>
-    </header>
-
-    <form action="{{ route('admin.posts.update', $post) }}" method="POST" novalidate>
         @csrf
-        @method('PUT')
         <div class="row">
             <div class="col-12">
                 <div class="mb-3">
@@ -41,7 +37,7 @@
             </div>
             <div class="col-12 d-flex justify-content-end">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="is_published" name="is_published" value="1"   
+                    <input class="form-check-input" type="checkbox" id="is_published" name="is_published" $value="1"   
                     @if(old('is_published', $post->is_published)) checked @endif>
                     <label class="form-check-label" for="is_published">
                         Pubblicato
@@ -64,16 +60,3 @@
             </div>
         </div>
     </form>
-@endsection
-
-@section('scripts')
-    <script>
-        const placeholder = 'https://';
-        const input = document.getElementById('image');
-        const preview = document.getElementById('preview');
-                        
-        input.addEventListener('input', () => {
-            preview.src = input.value || placeholder;
-        });
-    </script>
-@endsection
