@@ -42,6 +42,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title'=>'required|string|min:5|max:50|unique:posts',
+            'content'=>'required|string',
+            'image'=>'nullable|url',
+            'is_published'=>'nullable|boolean',
+
+        ], [
+            'title.required'=>'il titolo é obbligatorio',
+            'title.min'=>'il titolo deve essere :min caratteri',
+            'title.max'=>'il titolo deve essere :max caratteri',
+            'title.unique'=>'non possono esistere due post con lo stesso titolo',
+            'image.url'=>'L\'indirizzo inserito non è valido',
+            'is_published.boolean' =>'il valore del campo pubblicazione non è valido',
+            'content.required'=>'il contenuto è obbligatorio',
+        ]);
+
         $data = $request->all();
 
         $post = new Post();
@@ -76,6 +92,22 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title'=>['required','string','min:5','max:50','unique:posts', Rule::unique('posts')->ignore($post->id)],
+            'content'=>'required|string',
+            'image'=>'nullable|url',
+            'is_published'=>'nullable|boolean',
+
+        ], [
+            'title.required'=>'il titolo é obbligatorio',
+            'title.min'=>'il titolo deve essere :min caratteri',
+            'title.max'=>'il titolo deve essere :max caratteri',
+            'title.unique'=>'non possono esistere due post con lo stesso titolo',
+            'image.url'=>'L\'indirizzo inserito non è valido',
+            'is_published.boolean' =>'il valore del campo pubblicazione non è valido',
+            'content.required'=>'il contenuto è obbligatorio',
+        ]);
+
         $data = $request->all();
 
         $data['slug']->slug = Str::slug($data['title']);
