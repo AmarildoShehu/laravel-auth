@@ -1,23 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Post')
+
 @section('content')
-
-    <header>
-        <h1>My Blog</h1>
-        <h3>i nostri post</h3>
-
-        @if ($posts->hasPages())
-            {{ $posts->links() }}
-        @endif
-    </header>
-
-    @forelse($posts as $post)
-    <div class="card my-5" >
+<div class="card my-5" >
         <div class="card-header d-flex aligh-items-center justify-content-between">
             {{$post->title}}
 
-            <a href="{{ route('guest.posts.show', $post->slug) }}" class="btn btn-sm btn-primary">Vedi</a>
+            <a href="{{ route('admin.posts.show', $post) }}" class="btn btn-sm btn-primary">Vedi</a>
         </div>
         <div class="card-body">
             <div class="row">
@@ -38,7 +28,4 @@
 
         </div>
     </div>
-    @empty
-        <h3 class="text-center">Non ci sono post</h3>
-    @endforelse
 @endsection
