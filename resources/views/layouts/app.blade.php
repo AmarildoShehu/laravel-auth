@@ -37,12 +37,14 @@
             @include('includes.alerts')
 
             @yield('content')
+
+            <!-- Toast -->
+    @include('includes.toast')
+
         </main>
     </div>
 
-    <!-- Toast -->
-    @include('includes.toast')
-
+    
     <!-- Scripts -->
     @yield('scripts')
 </body>
