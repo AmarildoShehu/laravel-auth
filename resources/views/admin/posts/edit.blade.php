@@ -67,13 +67,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-        const placeholder = 'https://';
-        const input = document.getElementById('image');
-        const preview = document.getElementById('preview');
-                        
-        input.addEventListener('input', () => {
-            preview.src = input.value || placeholder;
-        });
-    </script>
+   @vite('resources/js/image_preview.js')
 @endsection
