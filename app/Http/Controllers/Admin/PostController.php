@@ -126,5 +126,22 @@ class PostController extends Controller
         $post->delete();
 
         return to_route('admin.posts.index')->with('type', 'danger')->with('message', 'Post eliminato con successo');
-    }
+    } 
+        // rotte soft delete
+
+        public function trash(){
+            $posts = Post::onlyTrashed()->get();
+            return view('admin.posts.trash', compact('posts'));
+        }
+
+        public function restore(Post $post ){
+            
+            $post->restore();
+            return to_route('admin.posts.index')->with('type', 'success')->with('message', 'Post ripristinato con successo');
+        }
+
+        public function drop(Post $post){
+            $post->forceDelete();
+            return to_route('admin.posts.trash')->with('type', 'warning')->with('message', 'Post eliminato definitivamente');
+        }
 }
