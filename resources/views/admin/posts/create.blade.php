@@ -7,9 +7,10 @@
         <h1>Nuovo Post</h1>
     </header>
 
-@include('includes.posts.form')
+    @include('includes.posts.form')
 @endsection
 
+
 @section('scripts')
-   @vite(resources/js/image_preview.js)
+  @vite('resources/js/image_preview.js')
 @endsection

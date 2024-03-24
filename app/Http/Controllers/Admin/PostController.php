@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
