@@ -38,13 +38,15 @@
 
             @yield('content')
 
-            <!-- Toast -->
-    @include('includes.toast')
-
+            
         </main>
     </div>
-
     
+    <!-- Toast -->
+    @include('includes.toast')
+
+    <!-- Modal -->
+    @include('includes.modal')
     <!-- Scripts -->
     @yield('scripts')
 </body>

@@ -1,4 +1,3 @@
-
 @if($post->exists)
     <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" novalidate>
     @method('PUT')
@@ -18,9 +17,9 @@
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
-                        @else
+                    @else
                         <div class="form.text">
-                        inserisci il titolo del post
+                            Inserisci il titolo del post
                         </div>
                     @enderror
                 </div>
@@ -28,10 +27,10 @@
 
             <div class="col-6">
                 <div class="mb-3">
-                    <label for="slug" class="form-label">slug</label>
+                    <label for="slug" class="form-label">Slug</label>
                     <input type="text" 
                     class="form-control" 
-                    id="slag" value="{{ Str::slug(old('title', $post->title))}}" disabled>
+                    id="slug" value="{{ Str::slug(old('title', $post->title))}}" disabled>
                 </div>
             </div>
 
@@ -46,9 +45,9 @@
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
-                        @else
+                    @else
                         <div class="form.text">
-                        inserisci il contenuto del post
+                            Inserisci il contenuto del post
                         </div>
                     @enderror
                 </div>
@@ -57,18 +56,33 @@
             <div class="col-11">
                 <div class="mb-3">
                     <label for="image" class="form-label">Immagine</label>
+
+                    <div id="previous-image-field" class="input-group @if(!$post->image) d-none @endif">
+                        <button class="btn btn-outline-secondary" 
+                        type="button"
+                        id="change-image-button">
+                            Cambia immagine
+                        </button>
+                        <input type="text"
+                        class="form-control"
+                        value="{{ old('image', $post->image) }}"
+                        disabled>
+                    </div>
+
                     <input type="file" 
-                    class="form-control @error('image') is-invalid @elseif(old('image','')) is-valid @enderror"
+                    class="form-control @if($post->image) d-none @endif 
+                    @error('image') is-invalid @elseif(old('image','')) is-valid @enderror"
                     id="image" name="image" placeholder="http:// o https://" 
-                        value="{{ old('image', $post->image) }}">
+                    >
+
                 </div>
                     @error('image')
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
-                        @else
+                    @else
                         <div class="form.text">
-                        Carica un file immagine
+                            Carica un file immagine
                         </div>
                     @enderror
             </div>
@@ -76,7 +90,8 @@
                 <img src="{{ old('image', $post->image 
                     ? $post->printImage()
                     : 'https://') }}" 
-                    class="img-fluid" alt="Immagine post" id="preview">
+                    class="img-fluid" alt="{{ $post->image ? $post->title : 'preview'}}" 
+                    id="preview">
             </div>
             <div class="col-12 d-flex justify-content-end">
                 <div class="form-check">
@@ -90,16 +105,16 @@
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-        <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary">Torna alla lista</a>
-        <div class="d-flex align-items-center gap-2">
-            <button type="reset" class="btn btn-secondary">
-                <i class="fas fa-eraser"></i>
-                Svuota i campi
-            </button>
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-floppy-disk"></i>
-                Salva
-            </button>
+            <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary">Torna alla lista</a>
+            <div class="d-flex align-items-center gap-2">
+                <button type="reset" class="btn btn-secondary">
+                    <i class="fas fa-eraser"></i>
+                    Svuota i campi
+                </button>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-floppy-disk"></i>
+                    Salva
+                </button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>

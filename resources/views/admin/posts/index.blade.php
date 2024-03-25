@@ -60,7 +60,7 @@
             </a>
         
         <form action="{{ route('admin.posts.destroy', $post->id)}}" method="POST" class="delete-form"
-        onsubmit="return confirm('Sei sicuro di voler eliminare questo post?')">
+        data-bs-toggle="modal" data-bs-target="#modal">
             @csrf
             @method('DELETE')        
             <button type="submit" class="btn btn-sm btn-danger">
@@ -85,6 +85,7 @@
 </table>
 
 
+<!-- Pagination -->
 <!-- questa generava errore  ora non piu Boooooooooooooooooo-->
   @if($posts->hasPages())
     {{$posts->links()}}

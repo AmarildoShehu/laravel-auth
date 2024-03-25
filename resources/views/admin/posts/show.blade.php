@@ -26,7 +26,8 @@
         <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-warning"> <i class="fas fa-pencil"></i> Modifica</a>
         
         <form action="{{ route('admin.posts.destroy', $post->id)}}" 
-        method="POST" class="delete-form">
+        method="POST" class="delete-form"
+        data-bs-toggle="modal" data-bs-target="#modal">
             @csrf
             @method('DELETE')        
             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-can me-2"></i>Elimina</button>
