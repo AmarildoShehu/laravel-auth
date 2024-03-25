@@ -47,11 +47,33 @@
       <th scope="row">{{ $post->id }}</th>
       <td>{{ $post->title }}</td>
       <td>{{ $post->slug }}</td>
-      <td>{{ $post->is_published ? 'Pubblicato' : 'Bozza'}}</td>
+      <td>
+        <form action="{{route('admin.posts.publish', $post->id)}}" method="POST" class="{{ 'is_published' . $post->id }}">
+          @csrf
+          @method('PATCH')
+          
+            <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="button" id="{{ 'is_published' . $post->id }}"
+@if ($post->is_published) checked @endif>
+<label class="form-check-label" for="{{ 'is_published' . $post->id }}">
+  {{ $post->is_published ? 'Pubblicato' : 'Bozza' }}
+</label>
+            </div>
+          
+      </form>
+        <!-- <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="button" id="is_published" 
+           @if ($post->is_published) checked @endif>
+          <label class="form-check-input" 
+           for="is_published">{{ $post->is_published ? 'Pubblicato' : 'Bozza'}}</label>
+        </div> -->
+      </td>
+      
+      
       <td>{{ $post->getFormaterDate('created_at', 'd-m-Y H:i:s') }}</td>
       <td>{{ $post->getFormaterDate('updated_at') }}</td>
       <td>
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-end gap-3">
             <a href="{{ route('admin.posts.show', $post)}}" class="btn btn-sm btn-primary">
                 <i class="fas fa-eye"></i>
             </a>
@@ -94,4 +116,12 @@
 
 @section('scripts')
   @vite('resources/js/delete_confirmation.js')
+  <script>
+    const togglePublicationForms = document.querySelectorAll(".publication-form");
+    togglePublicationForms.forEach(form => {
+      form.addEventListener('change', () => { // Evento di cambio per le caselle di controllo
+        form.submit();
+      });
+    });
+  </script>
 @endsection

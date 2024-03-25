@@ -180,4 +180,16 @@ class PostController extends Controller
             $post->forceDelete();
             return to_route('admin.posts.trash')->with('type', 'warning')->with('message', 'Post eliminato definitivamente');
         }
+
+        // Rotta pubblicazione
+        public function togglePublication(Post $post){
+            $post->is_published = !$post->is_published;
+            $post->save();
+            
+        
+            $action = $post->is_pubished ? 'pubblicato' : 'salvat come bozza';
+            $type = $post->is_published ? 'success' : 'info';
+
+            return back()->with('message', "il post $post->title è stato $action")->with('type', $type);
+        }
 }
