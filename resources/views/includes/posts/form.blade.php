@@ -1,9 +1,9 @@
 
 @if($post->exists)
-    <form action="{{ route('admin.posts.update', $post) }}" method="POST" novalidate>
+    <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" novalidate>
     @method('PUT')
 @else
-    <form action="{{ route('admin.posts.store') }}" method="POST" novalidate>
+    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" novalidate>
 @endif
 
 @csrf
@@ -57,8 +57,8 @@
             <div class="col-11">
                 <div class="mb-3">
                     <label for="image" class="form-label">Immagine</label>
-                    <input type="url" class="form-control
-                    @error('image') is-invalid @elseif(old('image','')) is-valid @enderror"
+                    <input type="file" 
+                    class="form-control @error('image') is-invalid @elseif(old('image','')) is-valid @enderror"
                     id="image" name="image" placeholder="http:// o https://" 
                         value="{{ old('image', $post->image) }}">
                 </div>
@@ -68,12 +68,15 @@
                         </div>
                         @else
                         <div class="form.text">
-                        inserisci un url assoluto di file immagine
+                        Carica un file immagine
                         </div>
                     @enderror
             </div>
             <div class="col-1">
-                <img src="{{ old('image', $post->image ?? 'https://') }}" class="img-fluid" alt="Immagine post" id="preview">
+                <img src="{{ old('image', $post->image 
+                    ? $post->printImage()
+                    : 'https://') }}" 
+                    class="img-fluid" alt="Immagine post" id="preview">
             </div>
             <div class="col-12 d-flex justify-content-end">
                 <div class="form-check">

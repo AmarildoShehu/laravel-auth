@@ -13,7 +13,7 @@
             <div class="row">
                 @if($post->image)
                 <div class="col-3">
-                    <img src="{{ $post->image}}" alt="{{ $post->title}}">
+                    <img src="{{ $post->printImage() }}" alt="{{ $post->title}}">
                 </div>
                 @endif
                 

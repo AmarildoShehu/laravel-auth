@@ -20,8 +20,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('/posts/trash', [AdminPostController::class, 'trash'])->name('posts.trash');
     Route::patch('/posts/{post}/restore', [AdminPostController::class, 'restore'])->name('posts.restore')->withTrashed();
-Route::delete('/posts/{post}/drop', [AdminPostController::class, 'drop'])->name('posts.drop')->withTrashed();   
-
+    Route::delete('/posts/{post}/drop', [AdminPostController::class, 'drop'])->name('posts.drop')->withTrashed();   
 
     Route::resource('posts', AdminPostController::class);
 });

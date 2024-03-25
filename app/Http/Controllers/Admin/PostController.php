@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+
 
 class PostController extends Controller
 {
@@ -46,7 +48,7 @@ class PostController extends Controller
         $request->validate([
             'title'=>'required|string|min:5|max:50|unique:posts',
             'content'=>'required|string',
-            'image'=>'nullable|url',
+            'image'=>'nullable|image|mimes:png,jpg,jpeg',
             'is_published'=>'nullable|boolean',
 
         ], [
@@ -54,7 +56,8 @@ class PostController extends Controller
             'title.min'=>'il titolo deve essere :min caratteri',
             'title.max'=>'il titolo deve essere :max caratteri',
             'title.unique'=>'non possono esistere due post con lo stesso titolo',
-            'image.url'=>'L\'indirizzo inserito non è valido',
+            'image.image'=>'il file inserito non eè un\'immagine',
+            'image.mimes'=> 'Le estensioni valide sono .png, .jpg, .jpeg',
             'is_published.boolean' =>'il valore del campo pubblicazione non è valido',
             'content.required'=>'il contenuto è obbligatorio',
         ]);
@@ -63,10 +66,20 @@ class PostController extends Controller
 
         $post = new Post();
 
+        
         $post->fill($data);
         $post->slug = Str::slug($post->title);
         $post->is_published = Arr::exists($data, 'is_published');
+        
     
+       // Controllo se mi arriva un file
+        if (Arr::exists($data, 'image')) {
+            $extension = $data['image']->extension();//'jpg' o 'png' o 'jpeg' ecc....
+            // Lo salvo e prendo l'url
+            $img_url = Storage::putFileAs('post_images', $data['image'], "$post->slug.$extension");
+            $post->image = $img_url;
+        };
+
         $post->save();
 
         return to_route('admin.posts.show', $post)->with('message', 'Post creato con successo')->with('type', 'success');
@@ -96,7 +109,7 @@ class PostController extends Controller
         $request->validate([
             'title'=>['required','string','min:5','max:50','unique:posts', Rule::unique('posts')->ignore($post->id)],
             'content'=>'required|string',
-            'image'=>'nullable|url',
+            'image'=>'nullable|image|mimes:png,jpg,jpeg',
             'is_published'=>'nullable|boolean',
 
         ], [
@@ -104,15 +117,28 @@ class PostController extends Controller
             'title.min'=>'il titolo deve essere :min caratteri',
             'title.max'=>'il titolo deve essere :max caratteri',
             'title.unique'=>'non possono esistere due post con lo stesso titolo',
-            'image.url'=>'L\'indirizzo inserito non è valido',
+            'image.image'=>'il file inserito non eè un\'immagine',
+            'image.mimes'=> 'Le estensioni valide sono .png, .jpg, .jpeg',
             'is_published.boolean' =>'il valore del campo pubblicazione non è valido',
             'content.required'=>'il contenuto è obbligatorio',
         ]);
 
         $data = $request->all();
 
-        $data['slug']->slug = Str::slug($data['title']);
+        
+        $data['slug'] = Str::slug($data['title']);
         $data['is_published'] = Arr::exists($data['is_published']);
+
+        // Controllo se mi arriva un file
+        if (Arr::exists($data, 'image')) {
+
+            //Controllo se ha immagine o meno e la cancello
+            if($post->image) Storage::delete($post->image);
+            $extension = $data['image']->extension();//'jpg' o 'png' o 'jpeg' ecc....
+            // Lo salvo e prendo l'url
+            $img_url = Storage::putFileAs('post_images', $data['image'], "{$data['slug']}.$extension");
+            $post->image = $img_url;
+        };
 
         $post->update($data);
 
@@ -127,7 +153,7 @@ class PostController extends Controller
 
         return to_route('admin.posts.index')
         ->with('toast-button-type', 'danger')
-        ->with('toas-message', 'Post eliminato con successo')
+        ->with('toast-message', 'Post eliminato con successo')
         ->with('toast-label', config('app.name'))
         ->with('toast-method','PATCH')
         ->with('toast-route', route('admin.posts.restore', $post->id))
@@ -149,6 +175,8 @@ class PostController extends Controller
         }
 
         public function drop(Post $post){
+
+            if($post->image) Storage::delete($post->image);
             $post->forceDelete();
             return to_route('admin.posts.trash')->with('type', 'warning')->with('message', 'Post eliminato definitivamente');
         }

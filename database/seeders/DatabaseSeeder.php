@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'amarildo@ciao.it',
         ]);
         
-        \App\Models\Post::factory(30)->create();
+        \App\Models\Post::factory(10)->create();
     }
 }

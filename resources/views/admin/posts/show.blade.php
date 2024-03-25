@@ -10,7 +10,7 @@
 
 <div class="clearfix">
     @if ($post->image)
-        <img src="{{ $post->image }}" alt="{{ $post->title }}" class="me-2 float-start">
+        <img src="{{ $post->printImage() }}" alt="{{ $post->title }}" class="me-2 float-start">
     @endif
     <p>{{ $post->content }}</p>
     <div>
